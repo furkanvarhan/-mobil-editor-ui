@@ -57,7 +57,40 @@ v.src=url;v.controls=true;v.style.width='100%';v.style.height='100%';v.style.obj
 document.querySelector('.preview').appendChild(v);
 document.getElementById('message').textContent='Video önizlemeye yüklendi.';
 }
-function addText(){
+
+function addText() {
+  const t = prompt('Videoda görünecek yazıyı yaz:');
+  if (!t || !t.trim()) return;
+
+  const preview = document.querySelector('.preview');
+
+  preview.style.position = 'relative';
+
+  const d = document.createElement('div');
+  d.textContent = t;
+  d.style.cssText = `
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    color:white;
+    font-size:26px;
+    font-weight:bold;
+    text-align:center;
+    text-shadow:2px 2px 5px black;
+    z-index:10;
+    width:90%;
+    pointer-events:none;
+  `;
+
+  preview.appendChild(d);
+
+  const track = document.createElement('div');
+  track.className = 'track';
+  track.textContent = 'T ' + t;
+  document.getElementById('tracks').appendChild(track);
+}
+  
 const t=prompt('Videoda görünecek yazıyı yaz:');
 if(!t)return;
 const d=document.createElement('div');
