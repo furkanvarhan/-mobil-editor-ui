@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aftercut Studio</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#101116;color:white;font-family:Arial,sans-serif}
+header{padding:18px;background:#191a22;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:23px;font-weight:bold;color:#8b7cff}
+button{border:0;border-radius:10px;padding:12px;background:#292a36;color:white;font-size:15px}
+main{padding:16px;max-width:700px;margin:auto}
+h2{font-size:18px}
+.preview{height:330px;background:linear-gradient(145deg,#292447,#11131b 65%);border:1px solid #454158;border-radius:16px;display:flex;align-items:center;justify-content:center;flex-direction:column}
+.play{font-size:40px;color:#a99cff}
+.tools{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0}
+.tools button{padding:15px 3px;font-size:12px}
+.track{background:#20212b;border-radius:12px;padding:12px;margin:10px 0}
+.clip{height:40px;background:#6554c0;border-radius:7px;margin-top:9px}
+input[type=range]{width:100%;accent-color:#9684ff}
+footer{color:#999;font-size:12px;text-align:center;padding:20px}
+</style>
+</head>
+<body>
+<header><div class="logo">✦ AFTERCUT</div><button onclick="alert('Proje kaydetme özelliğini sonraki aşamada ekleyeceğiz.')">Kaydet</button></header>
+<main>
+<h2>Video stüdyosu</h2>
+<div class="preview"><div class="play">▶</div><p>Video önizleme alanı</p><small>9:16 · Shorts / Reels</small></div>
+<div class="tools">
+<button onclick="pickVideo()">🎬 Video</button>
+<button onclick="addText()">T Yazı</button>
+<button onclick="alert('Efekt araçlarını sonraki aşamada geliştireceğiz.')">✨ Efekt</button>
+<button onclick="alert('Keyframe araçlarını sonraki aşamada geliştireceğiz.')">◆ Hareket</button>
+</div>
+<input id="videoFile" type="file" accept="video/*" hidden onchange="showVideo(event)">
+<div id="tracks">
+<div class="track">Video katmanı<div class="clip"></div></div>
+<div class="track">Ses / Yazı katmanı<div class="clip" style="background:#248c89;width:65%"></div></div>
+</div>
+<label>Yakınlaştırma</label>
+<input type="range" min="1" max="100" value="50">
+<p><button onclick="pickVideo()">＋ Video içe aktar</button> <button onclick="addText()">＋ Yazı ekle</button></p>
+<div id="message"></div>
+</main>
+<footer>AFTERCUT STUDIO · İlk arayüz prototipi</footer>
+<script>
+function pickVideo(){document.getElementById('videoFile').click()}
+function showVideo(e){
+const f=e.target.files[0];
+if(!f)return;
+const url=URL.createObjectURL(f);
+document.querySelector('.preview').innerHTML='';
+const v=document.createElement('video');
+v.src=url;v.controls=true;v.style.width='100%';v.style.height='100%';v.style.objectFit='contain';
+document.querySelector('.preview').appendChild(v);
+document.getElementById('message').textContent='Video önizlemeye yüklendi.';
+}
+function addText(){
+const t=prompt('Videoda görünecek yazıyı yaz:');
+if(!t)return;
+const d=document.createElement('div');
+d.className='track';
+d.textContent='T  '+t;
+document.getElementById('tracks').appendChild(d);
+}
+</script>
+</body>
+</html>
